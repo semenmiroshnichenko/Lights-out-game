@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightsOutUI", "LightsOut\LightsOutUI.csproj", "{1066C941-DDF8-44F0-9BFA-09E9737E94C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightsOutDomain", "LightsOutDomain\LightsOutDomain.csproj", "{C44E8705-B8EA-4FB4-8E23-A28D5FA546E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightsOutDomainTests", "LightsOutDomainTests\LightsOutDomainTests.csproj", "{7ED0B32A-F0A3-4183-9362-0DFF5CBAA999}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1066C941-DDF8-44F0-9BFA-09E9737E94C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1066C941-DDF8-44F0-9BFA-09E9737E94C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1066C941-DDF8-44F0-9BFA-09E9737E94C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1066C941-DDF8-44F0-9BFA-09E9737E94C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C44E8705-B8EA-4FB4-8E23-A28D5FA546E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C44E8705-B8EA-4FB4-8E23-A28D5FA546E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C44E8705-B8EA-4FB4-8E23-A28D5FA546E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C44E8705-B8EA-4FB4-8E23-A28D5FA546E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ED0B32A-F0A3-4183-9362-0DFF5CBAA999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ED0B32A-F0A3-4183-9362-0DFF5CBAA999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ED0B32A-F0A3-4183-9362-0DFF5CBAA999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ED0B32A-F0A3-4183-9362-0DFF5CBAA999}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
