@@ -1,0 +1,12 @@
+## Travis CI Integration
+
+language: csharp
+solution: LightsOut\LightsOut.sln
+
+install:
+  - nuget restore LightsOut\LightsOut.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release LightsOut\LightsOut.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Z80Core/Z80CoreTests/bin/Release/Z80CoreTests.dll
+           
