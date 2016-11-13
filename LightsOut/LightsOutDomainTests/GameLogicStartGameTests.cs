@@ -26,11 +26,21 @@ namespace LightsOutDomainTests
         }
 
         [Test]
-        public void WhenClickOnBulb00ShouldTriggerOnly01And10Bulbs()
+        public void WhenClickOnBulb00ShouldTrigger01And10Bulbs()
         {
             sut.ProcessToggle(0, 0);
             Assert.AreEqual(true, sut.GameField[0, 1]);
             Assert.AreEqual(true, sut.GameField[1, 0]);
+        }
+
+        [Test]
+        public void WhenClickOnBulb11ShouldTrigger21And01And10And12Bulbs()
+        {
+            sut.ProcessToggle(1, 1);
+            Assert.AreEqual(true, sut.GameField[2, 1]);
+            Assert.AreEqual(true, sut.GameField[0, 1]);
+            Assert.AreEqual(true, sut.GameField[1, 0]);
+            Assert.AreEqual(true, sut.GameField[1, 2]);
         }
     }
 }
