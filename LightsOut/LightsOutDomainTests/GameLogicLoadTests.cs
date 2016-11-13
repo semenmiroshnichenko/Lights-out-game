@@ -21,11 +21,11 @@ namespace LightsOutDomainTests
         {
             GameLogic sut = new GameLogic();
             sut.LoadLevel("Level1", 4, 4, new int[]{ 0, 5, 10, 15});
-            Assert.AreEqual(1, sut.GameField[0, 0]);
-            Assert.AreEqual(1, sut.GameField[1, 1]);
-            Assert.AreEqual(1, sut.GameField[2, 2]);
-            Assert.AreEqual(1, sut.GameField[3, 3]);
-            Assert.AreEqual(0, sut.GameField[0, 1]);
+            Assert.AreEqual(true, sut.GameField[0, 0]);
+            Assert.AreEqual(true, sut.GameField[1, 1]);
+            Assert.AreEqual(true, sut.GameField[2, 2]);
+            Assert.AreEqual(true, sut.GameField[3, 3]);
+            Assert.AreEqual(false, sut.GameField[0, 1]);
         }
         [Test]
         public void WhenLoadLevelShouldSetLevelName()
