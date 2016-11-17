@@ -15,6 +15,8 @@ namespace LightsOutDomainTests
             Assert.AreEqual(16, sut.GameField.Length);
             Assert.AreEqual(4, sut.GameField.GetLength(0));
             Assert.AreEqual(4, sut.GameField.GetLength(1));
+            Assert.AreEqual(0, sut.MoveCounter);
+            Assert.AreEqual(false, sut.Won);
         }
         [Test]
         public void WhenLoadLevelShouldFillTheGameField()
@@ -27,12 +29,31 @@ namespace LightsOutDomainTests
             Assert.AreEqual(true, sut.GameField[3, 3]);
             Assert.AreEqual(false, sut.GameField[0, 1]);
         }
+
         [Test]
         public void WhenLoadLevelShouldSetLevelName()
         {
             GameLogic sut = new GameLogic();
             sut.LoadLevel("Level1", 4, 4, new int[] {});
             Assert.AreEqual("Level1", sut.LevelName);
+        }
+
+        [Test]
+        public void WhenMakeAMovementShouldUpdateMoveCounter()
+        {
+            GameLogic sut = new GameLogic();
+            sut.LoadLevel("Level1", 4, 4, new int[] { 0, 5, 10, 15 });
+            sut.ProcessToggle(0, 0);
+            Assert.AreEqual(1, sut.MoveCounter);
+        }
+
+        [Test]
+        public void WhenWinShouldUpdateWonFlag()
+        {
+            GameLogic sut = new GameLogic();
+            sut.LoadLevel("Level1", 4, 4, new int[] { 1, 4, 5, 6, 9 });
+            sut.ProcessToggle(1, 1);
+            Assert.AreEqual(true, sut.Won);
         }
     }
 }

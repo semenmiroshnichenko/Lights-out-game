@@ -10,14 +10,18 @@ namespace LightsOutDomain
     {
         public bool[,] GameField { get; private set; }
         public string LevelName { get; private set; }
+        public int MoveCounter { get; private set; }
+        public bool Won { get; private set; }
 
         private int xSize;
         private int ySize;
-
+        
         public void LoadLevel(string levelName, int xSize, int ySize, int[] enabledLampNumbers)
         {
             this.xSize = xSize;
             this.ySize = ySize;
+            MoveCounter = 0;
+            Won = false;
             GameField = new bool[xSize,ySize];
             foreach(int enabledLampNumber in enabledLampNumbers)
             {
@@ -40,7 +44,6 @@ namespace LightsOutDomain
                     && neighbourY < ySize)
                     yield return new Tuple<int, int>(x, neighbourY);
             }
-            
         }
 
         public void ProcessToggle(int x, int y)
@@ -51,6 +54,38 @@ namespace LightsOutDomain
                 GameField[neighbourPosition.Item1, neighbourPosition.Item2] = 
                     !GameField[neighbourPosition.Item1, neighbourPosition.Item2];
             }
+            CheckIfWon();
+            RefreshMoveCounter();
+        }
+
+        private IEnumerable<bool> FlattenGameField()
+        {
+            for (int row = 0; row < GameField.GetLength(0); row++)
+            {
+                for (int column = 0; column < GameField.GetLength(1); column++)
+                {
+                    yield return GameField[row, column];
+                }
+            }
+        }
+
+        private void CheckIfWon()
+        {
+            if (FlattenGameField().All(x => x == false))
+            {
+                Won = true;
+                //TODO: implement Won event
+            }
+        }
+
+        private void RefreshMoveCounter()
+        {
+            MoveCounter++;
+        }
+
+        public void Restart()
+        {
+            throw new NotImplementedException();
         }
     }
 }
