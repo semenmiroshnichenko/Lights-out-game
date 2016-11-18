@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LightsOutDomain.GameLogicCreator;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,15 @@ namespace LightsOut
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            var mainWindow = new MainWindow();
+            var gameLogicCreator = new GameLogicCreator();
+            mainWindow.DataContext = new MainWindowViewModel(gameLogicCreator);
+            mainWindow.Show();
+        }
+
+       
     }
 }

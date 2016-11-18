@@ -4,9 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LightsOut"
+        xmlns:viewModels="clr-namespace:LightsOut"
+        xmlns:converters="clr-namespace:LightsOut.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Lights out game @Semen Miroshnichenko" 
+        Height="350" 
+        Width="525"
+        d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=True}">
+
+    <Window.Resources>
+        <converters:BoolArrayToDataViewConverter x:Key="BoolArrayToDataViewConverter" />
+    </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid ItemsSource="{Binding GameField, Converter={StaticResource BoolArrayToDataViewConverter}}"
+            HeadersVisibility="None">
+        </DataGrid>
+        
         
     </Grid>
 </Window>
