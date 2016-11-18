@@ -17,9 +17,9 @@ namespace LightsOut
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            var mainWindow = new MainWindow();
+            var mainWindow = new Views.MainWindow();
             var gameLogicCreator = new GameLogicCreator();
-            mainWindow.DataContext = new MainWindowViewModel(gameLogicCreator);
+            mainWindow.DataContext = new ViewModels.MainWindowViewModel(gameLogicCreator);
             mainWindow.Show();
         }
 

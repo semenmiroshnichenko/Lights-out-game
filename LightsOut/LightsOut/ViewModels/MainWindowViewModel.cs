@@ -7,7 +7,7 @@ using System.ComponentModel;
 using LightsOutDomain.GameLogicCreator;
 using System.Collections.ObjectModel;
 
-namespace LightsOut
+namespace LightsOut.ViewModels
 {
     public class MainWindowViewModel
     {
