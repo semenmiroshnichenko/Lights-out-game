@@ -36,7 +36,7 @@ namespace LightsOut.Converters
                 var newRow = t.NewRow();
                 for (var c = 0; c < columns; c++)
                 {
-                    newRow[c] = array[r, c];
+                    newRow[c] = array[c, r];
                 }
                 t.Rows.Add(newRow);
             }
