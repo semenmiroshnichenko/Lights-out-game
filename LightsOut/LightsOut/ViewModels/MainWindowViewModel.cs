@@ -47,6 +47,7 @@ namespace LightsOut.ViewModels
         {
             levels = GameLogicCreator.CreateFromUri(httpDownloader, @"file:///C:/Game/lights-out-levels.json");
             currentLevel = levels.First();
+            currentLevel.GameFieldChanged += (o,e) => NotifyPropertyChanged("GameField");
             GameField = currentLevel.GameField;
 
             CellClickCommand = new DelegateCommand(pos => OnCellClick(pos));
@@ -57,7 +58,7 @@ namespace LightsOut.ViewModels
             var position = param as Position;
             if (position == null) return;
             currentLevel.ProcessToggle(position.X, position.Y);
-            NotifyPropertyChanged("GameField");
+            
         }
     }
 }

@@ -10,9 +10,14 @@ namespace LightsOutDomain
     public class GameLogic
     {
         public bool[,] GameField { get; private set; }
+        public event EventHandler GameFieldChanged;
+
         public string LevelName { get; private set; }
         public int MoveCounter { get; private set; }
+        public event EventHandler MoveCounterChanged;
+
         public bool Won { get; private set; }
+        public event EventHandler WonChanged;
 
         private int xSize;
         private int ySize;
@@ -35,14 +40,12 @@ namespace LightsOutDomain
         {
             foreach (int neighbourX in new int[] { x - 1, x + 1 })
             {
-                if (neighbourX >= 0
-                        && neighbourX < xSize)
+                if (neighbourX >= 0 && neighbourX < xSize)
                     yield return new Position(neighbourX, y);
             }
             foreach (int neighbourY in new int[] { y - 1, y + 1 })
             {
-                if (neighbourY >= 0
-                    && neighbourY < ySize)
+                if (neighbourY >= 0 && neighbourY < ySize)
                     yield return new Position(x, neighbourY);
             }
         }
@@ -55,6 +58,8 @@ namespace LightsOutDomain
                 GameField[neighbourPosition.X, neighbourPosition.Y] = 
                     !GameField[neighbourPosition.X, neighbourPosition.Y];
             }
+            RaiseEvent(GameFieldChanged, null);
+
             CheckIfWon();
             RefreshMoveCounter();
         }
@@ -75,18 +80,26 @@ namespace LightsOutDomain
             if (FlattenGameField().All(x => x == false))
             {
                 Won = true;
-                //TODO: implement Won event
+                RaiseEvent(WonChanged, null);
             }
         }
 
         private void RefreshMoveCounter()
         {
             MoveCounter++;
+            RaiseEvent(MoveCounterChanged, null);
         }
 
         public void Restart()
         {
             throw new NotImplementedException();
+        }
+
+        private void RaiseEvent(EventHandler eventToRaise, EventArgs args)
+        {
+            var handler = eventToRaise;
+            if (handler != null)
+                handler(this, args);
         }
     }
 }

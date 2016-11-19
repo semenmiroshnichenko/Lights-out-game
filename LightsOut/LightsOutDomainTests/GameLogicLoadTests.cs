@@ -55,5 +55,38 @@ namespace LightsOutDomainTests
             sut.ProcessToggle(1, 1);
             Assert.AreEqual(true, sut.Won);
         }
+
+        [Test]
+        public void WhenMakeMovementShouldRaiseGameFieldChangedEvent()
+        {
+            GameLogic sut = new GameLogic();
+            sut.LoadLevel("Level1", 4, 4, new int[] { 1, 4, 5, 6, 9 });
+            var wasCalled = false;
+            sut.GameFieldChanged += ((o,e) => { wasCalled = true; });
+            sut.ProcessToggle(1, 1);
+            Assert.IsTrue(wasCalled);
+        }
+
+        [Test]
+        public void WhenMakeMovementShouldRaiseMoveCounterChangedEvent()
+        {
+            GameLogic sut = new GameLogic();
+            sut.LoadLevel("Level1", 4, 4, new int[] { 1, 4, 5, 6, 9 });
+            var wasCalled = false;
+            sut.MoveCounterChanged += ((o, e) => { wasCalled = true; });
+            sut.ProcessToggle(1, 1);
+            Assert.IsTrue(wasCalled);
+        }
+
+        [Test]
+        public void WhenWinShouldRaiseWonEvent()
+        {
+            GameLogic sut = new GameLogic();
+            sut.LoadLevel("Level1", 4, 4, new int[] { 1, 4, 5, 6, 9 });
+            var wasCalled = false;
+            sut.WonChanged += ((o, e) => { wasCalled = true; });
+            sut.ProcessToggle(1, 1);
+            Assert.IsTrue(wasCalled);
+        }
     }
 }
