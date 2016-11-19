@@ -10,6 +10,7 @@ using LightsOutDomain;
 using System.Windows.Input;
 using LightsOut.Common;
 using System.Runtime.CompilerServices;
+using LightsOutDomain.Types;
 
 namespace LightsOut.ViewModels
 {
@@ -53,9 +54,9 @@ namespace LightsOut.ViewModels
 
         private void OnCellClick(object param)
         {
-            var position = param as Tuple<int, int>;
+            var position = param as Position;
             if (position == null) return;
-            currentLevel.ProcessToggle(position.Item1, position.Item2);
+            currentLevel.ProcessToggle(position.X, position.Y);
             NotifyPropertyChanged("GameField");
         }
     }

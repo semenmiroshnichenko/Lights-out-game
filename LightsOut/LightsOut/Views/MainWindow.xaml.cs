@@ -1,4 +1,5 @@
 ﻿using LightsOut.ViewModels;
+using LightsOutDomain.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace LightsOut.Views
             var columnNumber = grid.CurrentColumn.DisplayIndex;
             var viewModel = DataContext as MainWindowViewModel;
             if (viewModel != null)
-                viewModel.CellClickCommand.Execute(new Tuple<int, int>(columnNumber, rowNumber));
+                viewModel.CellClickCommand.Execute(new Position(columnNumber, rowNumber));
         }
     }
 }
