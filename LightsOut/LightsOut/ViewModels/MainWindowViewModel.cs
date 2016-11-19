@@ -7,15 +7,28 @@ using System.ComponentModel;
 using LightsOutDomain.GameLogicCreator;
 using System.Collections.ObjectModel;
 using LightsOutDomain;
+using System.Windows.Input;
+using LightsOut.Common;
+using System.Runtime.CompilerServices;
 
 namespace LightsOut.ViewModels
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel: INotifyPropertyChanged
     {
         public bool[,] GameField { get; private set; }
+        public ICommand CellClickCommand { get; private set; }
 
         private IReadOnlyCollection<GameLogic> levels = null;
         private GameLogic currentLevel = null;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
         public MainWindowViewModel()
         {
@@ -34,6 +47,16 @@ namespace LightsOut.ViewModels
             levels = GameLogicCreator.CreateFromUri(httpDownloader, @"file:///C:/Game/lights-out-levels.json");
             currentLevel = levels.First();
             GameField = currentLevel.GameField;
+
+            CellClickCommand = new DelegateCommand(pos => OnCellClick(pos));
+        }
+
+        private void OnCellClick(object param)
+        {
+            var position = param as Tuple<int, int>;
+            if (position == null) return;
+            currentLevel.ProcessToggle(position.Item1, position.Item2);
+            NotifyPropertyChanged("GameField");
         }
     }
 }

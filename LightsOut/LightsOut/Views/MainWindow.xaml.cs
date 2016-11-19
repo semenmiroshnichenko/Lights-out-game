@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LightsOut.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace LightsOut.Views
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void DataGrid_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var grid = ((DataGrid)sender);
+            var rowNumber = grid.SelectedIndex;
+            var columnNumber = grid.CurrentColumn.DisplayIndex;
+            var viewModel = DataContext as MainWindowViewModel;
+            if (viewModel != null)
+                viewModel.CellClickCommand.Execute(new Tuple<int, int>(columnNumber, rowNumber));
         }
     }
 }

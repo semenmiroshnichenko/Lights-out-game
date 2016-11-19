@@ -26,7 +26,8 @@
         
 
         <DataGrid ItemsSource="{Binding GameField, Converter={StaticResource BoolArrayToDataViewConverter}}"
-            HeadersVisibility="None">
+            HeadersVisibility="None"
+                  MouseUp="DataGrid_MouseUp">
             
         </DataGrid>
         
