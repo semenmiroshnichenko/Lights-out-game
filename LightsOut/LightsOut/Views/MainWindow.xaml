@@ -22,9 +22,12 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        
+        
 
         <DataGrid ItemsSource="{Binding GameField, Converter={StaticResource BoolArrayToDataViewConverter}}"
             HeadersVisibility="None">
+            
         </DataGrid>
         
         

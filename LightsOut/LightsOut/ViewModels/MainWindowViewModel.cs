@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using LightsOutDomain.GameLogicCreator;
 using System.Collections.ObjectModel;
+using LightsOutDomain;
 
 namespace LightsOut.ViewModels
 {
     public class MainWindowViewModel
     {
         public bool[,] GameField { get; private set; }
+
+        private IReadOnlyCollection<GameLogic> levels = null;
+        private GameLogic currentLevel = null;
 
         public MainWindowViewModel()
         {
@@ -25,9 +29,11 @@ namespace LightsOut.ViewModels
                                       { false, true, false, false }};
             
         }
-        public MainWindowViewModel(GameLogicCreator gameCreator)
+        public MainWindowViewModel(IHttpDownloader httpDownloader)
         {
-            
+            levels = GameLogicCreator.CreateFromUri(httpDownloader, @"file:///C:/Game/lights-out-levels.json");
+            currentLevel = levels.First();
+            GameField = currentLevel.GameField;
         }
     }
 }

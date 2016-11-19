@@ -1,4 +1,5 @@
-﻿using LightsOutDomain.GameLogicCreator;
+﻿using LightsOutDomain;
+using LightsOutDomain.GameLogicCreator;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,8 +19,8 @@ namespace LightsOut
         {
             base.OnStartup(e);
             var mainWindow = new Views.MainWindow();
-            var gameLogicCreator = new GameLogicCreator();
-            mainWindow.DataContext = new ViewModels.MainWindowViewModel(gameLogicCreator);
+            var httpDownloader = new HttpDownloader();
+            mainWindow.DataContext = new ViewModels.MainWindowViewModel(httpDownloader);
             mainWindow.Show();
         }
 
