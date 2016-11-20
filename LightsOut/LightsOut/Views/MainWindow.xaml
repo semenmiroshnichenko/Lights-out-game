@@ -14,9 +14,6 @@
 
     <Window.Resources>
         <converters:BoolArrayToDataViewConverter x:Key="BoolArrayToDataViewConverter" />
-        <DataTemplate x:Key="DataGridDataTemplate">
-            <local:BulbSwitch Status="{Binding}" />
-        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -33,7 +30,8 @@
             MouseUp="DataGrid_MouseUp"
                   AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"
                   ColumnWidth="*"
-                  CanUserAddRows="False">
+                  CanUserAddRows="False"
+                  GridLinesVisibility="None">
             
             
         </DataGrid>

@@ -8,7 +8,8 @@
              xmlns:converters="clr-namespace:LightsOut.Converters"
              mc:Ignorable="d" 
              x:Name="BolbSwitch"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             >
     <UserControl.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:BooleanToInvertedVisibilityConverter x:Key="BooleanToInvertedVisibilityConverter" />
