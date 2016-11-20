@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LightsOut.Views"
+             xmlns:resources="clr-namespace:LightsOut.Resources"
              xmlns:converters="clr-namespace:LightsOut.Converters"
              mc:Ignorable="d" 
              x:Name="BolbSwitch"
@@ -13,7 +14,7 @@
         <converters:BooleanToInvertedVisibilityConverter x:Key="BooleanToInvertedVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
-        <TextBlock Text="On" Visibility="{Binding Path = Status, ElementName=BolbSwitch, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <TextBlock Text="Off" Visibility="{Binding Path = Status, ElementName=BolbSwitch, Converter={StaticResource BooleanToInvertedVisibilityConverter}}"/>
+        <resources:IMAGE_on Visibility="{Binding Path = Status, ElementName=BolbSwitch, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <resources:IMAGE_off Visibility="{Binding Path = Status, ElementName=BolbSwitch, Converter={StaticResource BooleanToInvertedVisibilityConverter}}"/>
     </Grid>
 </UserControl>
