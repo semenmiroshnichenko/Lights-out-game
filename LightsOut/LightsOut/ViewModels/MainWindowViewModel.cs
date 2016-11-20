@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
 using LightsOutDomain.GameLogicCreator;
-using System.Collections.ObjectModel;
 using LightsOutDomain;
 using System.Windows.Input;
 using LightsOut.Common;
@@ -159,6 +155,7 @@ namespace LightsOut.ViewModels
         {
             if (currentLevel == null) return;
             currentLevel.Restart();
+            //need to update reference to domain array
             GameField = currentLevel.GameField;
             NotifyPropertyChanged("GameField");
         }
