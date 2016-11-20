@@ -15,6 +15,8 @@
 
     <Window.Resources>
         <converters:BoolArrayToDataViewConverter x:Key="BoolArrayToDataViewConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:BooleanToInvertedVisibilityConverter x:Key="BooleanToInvertedVisibilityConverter" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -31,7 +33,7 @@
                   HeadersVisibility="None"
                   MouseUp="DataGrid_MouseUp"
                   AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"
-                  ColumnWidth="*"
+                  ColumnWidth="40"
                   CanUserAddRows="False"
                   GridLinesVisibility="None"
                   Grid.Row="0"
@@ -39,6 +41,23 @@
                   
                   >
         </DataGrid>
+        <StackPanel Orientation="Horizontal" 
+                    Grid.Row="0" 
+                    VerticalAlignment="Center"
+                    Visibility="{Binding CurrentLevelIsDone, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Text="You won"
+                       FontFamily="Source Sans Pro Black" 
+                       Foreground="Black" 
+                       FontSize="32"
+                       FontWeight="Bold"/>
+            <Button Content="Next level >" 
+                    FontSize="32"
+                    FontFamily="Source Sans Pro Black" 
+                    FontWeight="Bold"
+                    Command="{Binding NextLevelCommand}"
+                    />
+        </StackPanel>
+        
         <Grid Grid.Row="1" Background="Black">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

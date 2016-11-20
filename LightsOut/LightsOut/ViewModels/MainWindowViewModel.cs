@@ -18,6 +18,7 @@ namespace LightsOut.ViewModels
     {
         public bool[,] GameField { get; private set; }
         public ICommand CellClickCommand { get; private set; }
+        public ICommand NextLevelCommand { get; private set; }
 
         public int MoveCounter
         {
@@ -45,10 +46,24 @@ namespace LightsOut.ViewModels
             }
         }
 
-        private IReadOnlyCollection<GameLogic> levels = null;
+        public bool CurrentLevelIsDone
+        {
+            get { return currentLevelIsDone; }
+            private set
+            {
+                if (value != currentLevelIsDone)
+                {
+                    currentLevelIsDone = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private IEnumerator<GameLogic> levels = null;
         private GameLogic currentLevel = null;
         private int moveCounter;
         private int winCounter;
+        private bool currentLevelIsDone = false;
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -73,14 +88,33 @@ namespace LightsOut.ViewModels
         }
         public MainWindowViewModel(IHttpDownloader httpDownloader)
         {
-            levels = GameLogicCreator.CreateFromUri(httpDownloader, @"file:///C:/Game/lights-out-levels.json");
-            currentLevel = levels.First();
-            currentLevel.GameFieldChanged += (o,e) => NotifyPropertyChanged("GameField");
-            currentLevel.MoveCounterChanged += (o, e) => MoveCounter = e.Value;
-            currentLevel.WonChanged += (o, e) => WinCounter++;
+            levels = GameLogicCreator.CreateFromUri(httpDownloader, @"file:///C:/Game/lights-out-levels.json").GetEnumerator();
+            levels.MoveNext();
+            currentLevel = levels.Current;
+            currentLevel.GameFieldChanged += OnGameFieldChanged;
+            currentLevel.MoveCounterChanged += OnMoveCounterChanged;
+            currentLevel.WonChanged += OnWonChanged;
+
             GameField = currentLevel.GameField;
 
             CellClickCommand = new DelegateCommand(pos => OnCellClick(pos));
+            NextLevelCommand = new DelegateCommand(o => OnGoToNextLevel());
+        }
+
+        private void OnGameFieldChanged(object sender, EventArgs args)
+        {
+            NotifyPropertyChanged("GameField");
+        }
+
+        private void OnMoveCounterChanged(object sender, MoveCounterEventArgs args)
+        {
+            MoveCounter = args.Value;
+        }
+
+        private void OnWonChanged(object sender, EventArgs args)
+        {
+            WinCounter++;
+            CurrentLevelIsDone = true;
         }
 
         private void OnCellClick(object param)
@@ -89,6 +123,26 @@ namespace LightsOut.ViewModels
             if (position == null) return;
             if (currentLevel == null) return;
             currentLevel.ProcessToggle(position.X, position.Y);
+        }
+
+        private void OnGoToNextLevel()
+        {
+            CurrentLevelIsDone = false;
+            levels.MoveNext();
+
+            currentLevel.GameFieldChanged -= OnGameFieldChanged;
+            currentLevel.MoveCounterChanged -= OnMoveCounterChanged;
+            currentLevel.WonChanged -= OnWonChanged;
+
+            currentLevel = levels.Current;
+
+            currentLevel.GameFieldChanged += OnGameFieldChanged;
+            currentLevel.MoveCounterChanged += OnMoveCounterChanged;
+            currentLevel.WonChanged += OnWonChanged;
+
+            GameField = currentLevel.GameField;
+            NotifyPropertyChanged("GameField");
+            MoveCounter = 0;
         }
     }
 }

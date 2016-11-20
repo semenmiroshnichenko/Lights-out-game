@@ -33,6 +33,7 @@ namespace LightsOut.Views
         private void DataGrid_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var grid = ((DataGrid)sender);
+            if (grid.SelectedIndex == -1 || grid.CurrentColumn == null) return;
             var rowNumber = grid.SelectedIndex;
             var columnNumber = grid.CurrentColumn.DisplayIndex;
             var viewModel = DataContext as MainWindowViewModel;
