@@ -13,7 +13,19 @@ namespace LightsOutDomain
         public event EventHandler GameFieldChanged;
 
         public string LevelName { get; private set; }
-        public int MoveCounter { get; private set; }
+        public int MoveCounter {
+            get { return moveCounter; }
+            private set
+            {
+                if(value != moveCounter)
+                {
+                    moveCounter = value;
+                    var handler = MoveCounterChanged;
+                    if (handler != null)
+                        handler(this, new MoveCounterEventArgs(moveCounter));
+                }
+            }
+        }
         public event EventHandler<MoveCounterEventArgs> MoveCounterChanged;
 
         public bool Won { get; private set; }
@@ -22,6 +34,7 @@ namespace LightsOutDomain
         private int xSize;
         private int ySize;
         private bool[,] initialGameField;
+        private int moveCounter;
 
         public void LoadLevel(string levelName, int xSize, int ySize, int[] enabledLampNumbers)
         {
@@ -89,9 +102,6 @@ namespace LightsOutDomain
         private void IncrementMoveCounter()
         {
             MoveCounter++;
-            var handler = MoveCounterChanged;
-            if (handler != null)
-                handler(this, new MoveCounterEventArgs(MoveCounter));
         }
 
         public void Restart()
@@ -99,9 +109,7 @@ namespace LightsOutDomain
             GameField = (bool[,])initialGameField.Clone();
             RaiseEvent(GameFieldChanged, null);
             MoveCounter = 0;
-            var handler = MoveCounterChanged;
-            if (handler != null)
-                handler(this, new MoveCounterEventArgs(MoveCounter));
+            
         }
 
         private void RaiseEvent(EventHandler eventToRaise, EventArgs args)
