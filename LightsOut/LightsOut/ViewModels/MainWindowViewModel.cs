@@ -32,9 +32,23 @@ namespace LightsOut.ViewModels
             }
         }
 
+        public int WinCounter
+        {
+            get { return winCounter; }
+            private set
+            {
+                if (value != winCounter)
+                {
+                    winCounter = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         private IReadOnlyCollection<GameLogic> levels = null;
         private GameLogic currentLevel = null;
         private int moveCounter;
+        private int winCounter;
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -63,6 +77,7 @@ namespace LightsOut.ViewModels
             currentLevel = levels.First();
             currentLevel.GameFieldChanged += (o,e) => NotifyPropertyChanged("GameField");
             currentLevel.MoveCounterChanged += (o, e) => MoveCounter = e.Value;
+            currentLevel.WonChanged += (o, e) => WinCounter++;
             GameField = currentLevel.GameField;
 
             CellClickCommand = new DelegateCommand(pos => OnCellClick(pos));
