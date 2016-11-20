@@ -21,7 +21,8 @@ namespace LightsOutDomain
 
         private int xSize;
         private int ySize;
-        
+        private bool[,] initialGameField;
+
         public void LoadLevel(string levelName, int xSize, int ySize, int[] enabledLampNumbers)
         {
             this.xSize = xSize;
@@ -33,6 +34,7 @@ namespace LightsOutDomain
             {
                 GameField[enabledLampNumber % xSize, enabledLampNumber / xSize] = true;
             }
+            initialGameField = (bool[,])GameField.Clone();
             LevelName = levelName;
         }
 
@@ -61,7 +63,7 @@ namespace LightsOutDomain
             RaiseEvent(GameFieldChanged, null);
 
             CheckIfWon();
-            RefreshMoveCounter();
+            IncrementMoveCounter();
         }
 
         private IEnumerable<bool> FlattenGameField()
@@ -84,7 +86,7 @@ namespace LightsOutDomain
             }
         }
 
-        private void RefreshMoveCounter()
+        private void IncrementMoveCounter()
         {
             MoveCounter++;
             var handler = MoveCounterChanged;
@@ -94,7 +96,12 @@ namespace LightsOutDomain
 
         public void Restart()
         {
-            throw new NotImplementedException();
+            GameField = (bool[,])initialGameField.Clone();
+            RaiseEvent(GameFieldChanged, null);
+            MoveCounter = 0;
+            var handler = MoveCounterChanged;
+            if (handler != null)
+                handler(this, new MoveCounterEventArgs(MoveCounter));
         }
 
         private void RaiseEvent(EventHandler eventToRaise, EventArgs args)

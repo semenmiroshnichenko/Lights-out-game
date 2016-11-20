@@ -19,6 +19,7 @@ namespace LightsOut.ViewModels
         public bool[,] GameField { get; private set; }
         public ICommand CellClickCommand { get; private set; }
         public ICommand NextLevelCommand { get; private set; }
+        public ICommand ReloadLevelCommand { get; private set; }
 
         public int MoveCounter
         {
@@ -97,6 +98,7 @@ namespace LightsOut.ViewModels
 
             CellClickCommand = new DelegateCommand(pos => OnCellClick(pos));
             NextLevelCommand = new DelegateCommand(o => OnGoToNextLevel());
+            ReloadLevelCommand = new DelegateCommand(o => OnReloadLevel());
         }
 
         private void SubscribeToDomainEvents(GameLogic gameLogic)
@@ -151,6 +153,14 @@ namespace LightsOut.ViewModels
             GameField = currentLevel.GameField;
             NotifyPropertyChanged("GameField");
             MoveCounter = 0;
+        }
+
+        private void OnReloadLevel()
+        {
+            if (currentLevel == null) return;
+            currentLevel.Restart();
+            GameField = currentLevel.GameField;
+            NotifyPropertyChanged("GameField");
         }
     }
 }

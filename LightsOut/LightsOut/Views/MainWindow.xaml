@@ -9,7 +9,7 @@
         xmlns:resources="clr-namespace:LightsOut.Resources"
         mc:Ignorable="d"
         Title="Lights out game @Semen Miroshnichenko" 
-        Height="400" 
+        Height="450" 
         Width="600"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=True}">
 
@@ -107,6 +107,14 @@
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Text="{Binding MoveCounter}"/>
+            <Button Grid.Column="3" 
+                    HorizontalAlignment="Right" 
+                    Background="Black"
+                    Command="{Binding ReloadLevelCommand}">
+                <TextBlock FontFamily="Lucida Sans Unicode" 
+                           Foreground="White" 
+                           FontSize="40">&#x21bb;</TextBlock>
+            </Button>
         </Grid>
         
     </Grid>
