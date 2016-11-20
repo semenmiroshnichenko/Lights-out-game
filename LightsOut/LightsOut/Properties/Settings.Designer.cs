@@ -25,7 +25,8 @@ namespace LightsOut.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("file:///C:/Game/lights-out-levels.json")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://raw.githubusercontent.com/semenmiroshnichenko/Lights-out-game/master/Ligh" +
+            "tsOut/LightsOut/Resources/lights-out-levels.json")]
         public string GameLevelsUri {
             get {
                 return ((string)(this["GameLevelsUri"]));
