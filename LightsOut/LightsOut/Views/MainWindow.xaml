@@ -42,6 +42,18 @@
                   HorizontalAlignment="Center"
                   BorderThickness="0" 
                   >
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DataContext.CurrentLevelIsDone, RelativeSource={RelativeSource AncestorType=DataGrid}}" Value="false">
+                            <Setter Property="Background" Value="#FF4848"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DataContext.CurrentLevelIsDone, RelativeSource={RelativeSource AncestorType=DataGrid}}" Value="true">
+                            <Setter Property="Background" Value="#5ED16B"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
         </DataGrid>
         <StackPanel Orientation="Horizontal" 
                     Grid.Row="0" 
