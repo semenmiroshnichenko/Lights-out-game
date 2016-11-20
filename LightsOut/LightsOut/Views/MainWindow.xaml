@@ -9,8 +9,8 @@
         xmlns:resources="clr-namespace:LightsOut.Resources"
         mc:Ignorable="d"
         Title="Lights out game @Semen Miroshnichenko" 
-        Height="350" 
-        Width="525"
+        Height="400" 
+        Width="600"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel, IsDesignTimeCreatable=True}">
 
     <Window.Resources>
@@ -21,7 +21,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -33,26 +33,29 @@
                   HeadersVisibility="None"
                   MouseUp="DataGrid_MouseUp"
                   AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"
-                  ColumnWidth="40"
+                  ColumnWidth="60"
                   CanUserAddRows="False"
                   GridLinesVisibility="None"
                   Grid.Row="0"
                   Grid.Column="0"
-                  
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center"
+                  BorderThickness="0" 
                   >
         </DataGrid>
         <StackPanel Orientation="Horizontal" 
                     Grid.Row="0" 
                     VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
                     Visibility="{Binding CurrentLevelIsDone, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="YOU WIN THIS BATTLE.."
                        FontFamily="Source Sans Pro Black" 
                        Foreground="Black" 
-                       FontSize="32"
+                       FontSize="40"
                        FontWeight="Bold"
                        VerticalAlignment="Center"/>
             <Button Content="Next >" 
-                    FontSize="32"
+                    FontSize="40"
                     FontFamily="Source Sans Pro Black" 
                     FontWeight="Bold"
                     VerticalAlignment="Center"
@@ -76,7 +79,7 @@
             <TextBlock FontFamily="Source Sans Pro Black" 
                        Foreground="White" 
                        Grid.Column="1" 
-                       FontSize="32"
+                       FontSize="40"
                        FontWeight="Bold"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
@@ -87,7 +90,7 @@
             <TextBlock FontFamily="Source Sans Pro Black" 
                        Foreground="White" 
                        Grid.Column="3" 
-                       FontSize="32"
+                       FontSize="40"
                        FontWeight="Bold"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
