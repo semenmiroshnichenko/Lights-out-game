@@ -128,12 +128,13 @@ namespace LightsOut.ViewModels
         private void OnGoToNextLevel()
         {
             CurrentLevelIsDone = false;
-            levels.MoveNext();
+
 
             currentLevel.GameFieldChanged -= OnGameFieldChanged;
             currentLevel.MoveCounterChanged -= OnMoveCounterChanged;
             currentLevel.WonChanged -= OnWonChanged;
 
+            if (!levels.MoveNext()) return;
             currentLevel = levels.Current;
 
             currentLevel.GameFieldChanged += OnGameFieldChanged;
