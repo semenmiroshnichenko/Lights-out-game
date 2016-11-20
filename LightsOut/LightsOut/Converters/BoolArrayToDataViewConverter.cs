@@ -27,7 +27,7 @@ namespace LightsOut.Converters
             // Add columns with name "0", "1", "2", ...
             for (var c = 0; c < columns; c++)
             {
-                t.Columns.Add(new DataColumn(c.ToString()));
+                t.Columns.Add(new DataColumn("Column" + c.ToString()));
             }
 
             // Add data to DataTable
