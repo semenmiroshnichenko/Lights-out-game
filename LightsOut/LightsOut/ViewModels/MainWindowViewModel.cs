@@ -88,7 +88,7 @@ namespace LightsOut.ViewModels
         }
         public MainWindowViewModel(IHttpDownloader httpDownloader)
         {
-            levels = GameLogicCreator.CreateFromUri(httpDownloader, @"file:///C:/Game/lights-out-levels.json").GetEnumerator();
+            levels = GameLogicCreator.CreateFromUri(httpDownloader, Properties.Settings.Default.GameLevelsUri).GetEnumerator();
             levels.MoveNext();
             currentLevel = levels.Current;
             currentLevel.GameFieldChanged += OnGameFieldChanged;
