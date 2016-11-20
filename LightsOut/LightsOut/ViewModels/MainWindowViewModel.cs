@@ -91,14 +91,26 @@ namespace LightsOut.ViewModels
             levels = GameLogicCreator.CreateFromUri(httpDownloader, Properties.Settings.Default.GameLevelsUri).GetEnumerator();
             levels.MoveNext();
             currentLevel = levels.Current;
-            currentLevel.GameFieldChanged += OnGameFieldChanged;
-            currentLevel.MoveCounterChanged += OnMoveCounterChanged;
-            currentLevel.WonChanged += OnWonChanged;
+            SubscribeToDomainEvents(currentLevel);
 
             GameField = currentLevel.GameField;
 
             CellClickCommand = new DelegateCommand(pos => OnCellClick(pos));
             NextLevelCommand = new DelegateCommand(o => OnGoToNextLevel());
+        }
+
+        private void SubscribeToDomainEvents(GameLogic gameLogic)
+        {
+            gameLogic.GameFieldChanged += OnGameFieldChanged;
+            gameLogic.MoveCounterChanged += OnMoveCounterChanged;
+            gameLogic.WonChanged += OnWonChanged;
+        }
+
+        private void UnsubscribeFromDomainEvents(GameLogic gameLogic)
+        {
+            gameLogic.GameFieldChanged -= OnGameFieldChanged;
+            gameLogic.MoveCounterChanged -= OnMoveCounterChanged;
+            gameLogic.WonChanged -= OnWonChanged;
         }
 
         private void OnGameFieldChanged(object sender, EventArgs args)
@@ -129,17 +141,12 @@ namespace LightsOut.ViewModels
         {
             CurrentLevelIsDone = false;
 
-
-            currentLevel.GameFieldChanged -= OnGameFieldChanged;
-            currentLevel.MoveCounterChanged -= OnMoveCounterChanged;
-            currentLevel.WonChanged -= OnWonChanged;
+            UnsubscribeFromDomainEvents(currentLevel);
 
             if (!levels.MoveNext()) return;
             currentLevel = levels.Current;
 
-            currentLevel.GameFieldChanged += OnGameFieldChanged;
-            currentLevel.MoveCounterChanged += OnMoveCounterChanged;
-            currentLevel.WonChanged += OnWonChanged;
+            SubscribeToDomainEvents(currentLevel);
 
             GameField = currentLevel.GameField;
             NotifyPropertyChanged("GameField");
