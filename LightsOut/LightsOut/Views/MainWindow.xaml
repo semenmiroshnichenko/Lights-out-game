@@ -45,15 +45,17 @@
                     Grid.Row="0" 
                     VerticalAlignment="Center"
                     Visibility="{Binding CurrentLevelIsDone, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock Text="You won"
+            <TextBlock Text="YOU WIN THIS BATTLE.."
                        FontFamily="Source Sans Pro Black" 
                        Foreground="Black" 
                        FontSize="32"
-                       FontWeight="Bold"/>
-            <Button Content="Next level >" 
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+            <Button Content="Next >" 
                     FontSize="32"
                     FontFamily="Source Sans Pro Black" 
                     FontWeight="Bold"
+                    VerticalAlignment="Center"
                     Command="{Binding NextLevelCommand}"
                     />
         </StackPanel>
