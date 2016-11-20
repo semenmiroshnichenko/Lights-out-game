@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:LightsOut.Views"
              xmlns:resources="clr-namespace:LightsOut.Resources"
              xmlns:converters="clr-namespace:LightsOut.Converters"
@@ -14,8 +15,24 @@
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:BooleanToInvertedVisibilityConverter x:Key="BooleanToInvertedVisibilityConverter" />
     </UserControl.Resources>
+      
     <Grid>
+        <!--<Grid.Triggers>
+            <EventTrigger RoutedEvent="Grid.PreviewMouseLeftButtonDown">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="myText" Storyboard.Target="" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+                            <DiscreteObjectKeyFrame KeyTime="00:00:00.8000000" Value="{x:Static Visibility.Collapsed}"/>
+                            <DiscreteObjectKeyFrame KeyTime="00:00:01.4000000" Value="{x:Static Visibility.Visible}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>-->
+
         <resources:IMAGE_on Visibility="{Binding Path = Status, ElementName=BolbSwitch, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <resources:IMAGE_off Visibility="{Binding Path = Status, ElementName=BolbSwitch, Converter={StaticResource BooleanToInvertedVisibilityConverter}}"/>
+        <TextBlock Text="Click" x:Name="myText" Visibility="Hidden" />
     </Grid>
 </UserControl>

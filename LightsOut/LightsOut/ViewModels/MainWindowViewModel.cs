@@ -19,8 +19,22 @@ namespace LightsOut.ViewModels
         public bool[,] GameField { get; private set; }
         public ICommand CellClickCommand { get; private set; }
 
+        public int MoveCounter
+        {
+            get { return moveCounter; }
+            private set
+            {
+                if(value != moveCounter)
+                {
+                    moveCounter = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         private IReadOnlyCollection<GameLogic> levels = null;
         private GameLogic currentLevel = null;
+        private int moveCounter;
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -48,6 +62,7 @@ namespace LightsOut.ViewModels
             levels = GameLogicCreator.CreateFromUri(httpDownloader, @"file:///C:/Game/lights-out-levels.json");
             currentLevel = levels.First();
             currentLevel.GameFieldChanged += (o,e) => NotifyPropertyChanged("GameField");
+            currentLevel.MoveCounterChanged += (o, e) => MoveCounter = e.Value;
             GameField = currentLevel.GameField;
 
             CellClickCommand = new DelegateCommand(pos => OnCellClick(pos));
@@ -57,8 +72,8 @@ namespace LightsOut.ViewModels
         {
             var position = param as Position;
             if (position == null) return;
+            if (currentLevel == null) return;
             currentLevel.ProcessToggle(position.X, position.Y);
-            
         }
     }
 }

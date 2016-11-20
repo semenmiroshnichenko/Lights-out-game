@@ -14,7 +14,7 @@ namespace LightsOutDomain
 
         public string LevelName { get; private set; }
         public int MoveCounter { get; private set; }
-        public event EventHandler MoveCounterChanged;
+        public event EventHandler<MoveCounterEventArgs> MoveCounterChanged;
 
         public bool Won { get; private set; }
         public event EventHandler WonChanged;
@@ -87,7 +87,9 @@ namespace LightsOutDomain
         private void RefreshMoveCounter()
         {
             MoveCounter++;
-            RaiseEvent(MoveCounterChanged, null);
+            var handler = MoveCounterChanged;
+            if (handler != null)
+                handler(this, new MoveCounterEventArgs(MoveCounter));
         }
 
         public void Restart()

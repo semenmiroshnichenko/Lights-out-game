@@ -49,6 +49,7 @@
     <Compile Include="HttpDownloader\HttpDownloader.cs" />
     <Compile Include="HttpDownloader\IHttpDownloader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\MoveCounterEventArgs.cs" />
     <Compile Include="Types\Position.cs" />
   </ItemGroup>
   <ItemGroup>
